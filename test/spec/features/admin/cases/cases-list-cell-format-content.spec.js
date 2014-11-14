@@ -50,11 +50,7 @@
     });
 
     describe('formatContent', function () {
-      beforeEach(module('org.bonita.features.admin.cases.list.formatContent', function($controllerProvider){
-        $controllerProvider.register('formatContentController', function() {
-
-        });
-      }));
+      beforeEach(module('org.bonita.features.admin.cases.list.formatContent'));
 
       beforeEach(inject(function ($rootScope) {
         scope = $rootScope.$new();
@@ -79,7 +75,7 @@
       it('should not format date when data is not in the right format', function () {
         scope.caseItem.content = '2014-10-17 16:05:42.626';
         scope.dateFormat = 'MM/dd/yyyy h:mm:ss a';
-        var expectedFormatedData = 'Oct 17, 2014';
+        var expectedFormatedData = '10/17/2014 4:05:42 PM';
         scope.col.date = true;
         element = compile('<format-content column="col" case-item="caseItem"></format-content>')(scope);
         expect(element.html()).toEqual(expectedFormatedData);
