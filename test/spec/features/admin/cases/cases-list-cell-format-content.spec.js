@@ -78,7 +78,8 @@
       });
       it('should not format date when data is not in the right format', function () {
         scope.caseItem.content = '2014-10-17 16:05:42.626';
-        var expectedFormatedData = '2014-10-17 16:05';
+        scope.dateFormat = 'MM/dd/yyyy h:mm:ss a';
+        var expectedFormatedData = 'Oct 17, 2014';
         scope.col.date = true;
         element = compile('<format-content column="col" case-item="caseItem"></format-content>')(scope);
         expect(element.html()).toEqual(expectedFormatedData);
