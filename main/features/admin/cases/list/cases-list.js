@@ -74,7 +74,9 @@
       currentPage: 1,
       total: 0
     };
-    $scope.selectedFilters = {};
+    $scope.selectedFilters = {
+      processId : processId
+    };
     $scope.pageSizes = pageSizes;
     /**
      * @ngdoc property
@@ -96,7 +98,6 @@
     $scope.filters = angular.copy(defaultFiltersArray);
     $scope.supervisorId = supervisorId;
 
-    $scope.selectedFilters.processId = processId;
     $scope.archivedTabName = !!tabName;
 
     manageTopUrl.addOrReplaceParam('_tab', tabName);
@@ -125,10 +126,6 @@
         default:
           growl.info(content, options);
       }
-    };
-
-    $scope.closeAlert = function(index) {
-      $scope.alerts.splice(index, 1);
     };
 
     $scope.$watch('filters', function() {
@@ -194,13 +191,13 @@
         $scope.currentFirstResultIndex = 0;
         $scope.currentLastResultIndex = 0;
         $scope.cases = [];
-        $scope.displayError(error);
+        $scope.handleHttpError(error);
       }).finally(function() {
         $anchorScroll();
       });
     };
 
-    $scope.displayError = function(error) {
+    $scope.handleHttpError = function(error) {
       if (error) {
         if (error.status === 401) {
           $location.url('/');

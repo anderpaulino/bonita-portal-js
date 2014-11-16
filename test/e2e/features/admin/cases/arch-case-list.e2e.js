@@ -189,7 +189,7 @@
         expect(element.all(by.xpath('//table//th[5]//div/span[2]')).getAttribute('class')).toEqual(['glyphicon glyphicon-chevron-up']);
         expect(element.all(by.css('.glyphicon-chevron-up')).count()).toBe(1);
         expect(element(by.css('.glyphicon-chevron-down')).isElementPresent()).toBeFalsy();
-        expect(caseList.all(by.css('tbody tr')).get(0).all(by.css('td')).getText()).toEqual(['', 'Pool', '1.0', '1', '2014-10-16 16:05', 'william.jobs', '2014-11-02 10:07', 'started', '']);
+        expect(caseList.all(by.css('tbody tr')).get(0).all(by.css('td')).getText()).toEqual([ '', 'Pool', '1.0', '1', '10/16/2014 4:05:48 PM', 'william.jobs', '11/02/2014 10:07:43 AM', 'started', '' ]);
       });
       it('should order by date desc', function () {
         tableHeader.get(2).click();
@@ -197,7 +197,7 @@
         expect(element.all(by.xpath('//table//th[5]//div/span[2]')).getAttribute('class')).toEqual(['glyphicon glyphicon-chevron-down']);
         expect(element.all(by.css('.glyphicon-chevron-down')).count()).toBe(1);
         expect(element(by.css('.glyphicon-chevron-up')).isElementPresent()).toBeFalsy();
-        expect(caseList.all(by.css('tbody tr')).get(0).all(by.css('td')).getText()).toEqual(['', 'ProcessX', '2.0', '1', '2014-10-20 10:08', 'william.jobs', '2014-11-02 10:07', 'started', '']);
+        expect(caseList.all(by.css('tbody tr')).get(0).all(by.css('td')).getText()).toEqual([ '', 'ProcessX', '2.0', '1', '10/20/2014 10:08:29 AM', 'william.jobs', '11/02/2014 10:07:43 AM', 'started', '' ]);
       });
     });
 
@@ -209,9 +209,9 @@
           expect(poolCaseDetails[1].getText()).toContain('Leave Request');
           expect(poolCaseDetails[2].getText()).toContain('1.0');
           expect(poolCaseDetails[3].getText()).toContain('1');
-          expect(poolCaseDetails[4].getText()).toContain('2014-10-17 16:05');
+          expect(poolCaseDetails[4].getText()).toContain('10/17/2014 4:05:42 PM');
           expect(poolCaseDetails[5].getText()).toContain('walter.bates');
-          expect(poolCaseDetails[6].getText()).toContain('2014-11-02 10:07');
+          expect(poolCaseDetails[6].getText()).toContain('11/02/2014 10:07:43 AM');
           expect(poolCaseDetails[7].getText()).toContain('started');
         });
       });
