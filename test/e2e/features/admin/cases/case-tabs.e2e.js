@@ -22,17 +22,17 @@
     });
 
     it('should navigate between tabs', function(){
-      expect(activeCaseTab.getAttribute('class')).toContain('active');
-      expect(archivedCaseTab.getAttribute('class')).not.toContain('active');
+      expect(element(by.css('#TabActiveCases')).getAttribute('class')).toContain('active');
+      expect(element(by.css('#TabArchivedCases')).getAttribute('class')).not.toContain('active');
       archivedCaseA.click();
-      expect(activeCaseTab.getAttribute('class')).not.toContain('active');
-      expect(archivedCaseTab.getAttribute('class')).toContain('active');
+      expect(element(by.css('#TabActiveCases')).getAttribute('class')).not.toContain('active');
+      expect(element(by.css('#TabArchivedCases')).getAttribute('class')).toContain('active');
       archivedCaseA.click();
-      expect(activeCaseTab.getAttribute('class')).not.toContain('active');
-      expect(archivedCaseTab.getAttribute('class')).toContain('active');
+      expect(element(by.css('#TabActiveCases')).getAttribute('class')).not.toContain('active');
+      expect(element(by.css('#TabArchivedCases')).getAttribute('class')).toContain('active');
       activeCaseA.click();
-      expect(activeCaseTab.getAttribute('class')).toContain('active');
-      expect(archivedCaseTab.getAttribute('class')).not.toContain('active');
+      expect(element(by.css('#TabActiveCases')).getAttribute('class')).toContain('active');
+      expect(element(by.css('#TabArchivedCases')).getAttribute('class')).not.toContain('active');
 
     });
   });
