@@ -88,7 +88,7 @@
     $scope.moreDetailToken = moreDetailToken;
     $scope.loading = true;
 
-    var defaultFiltersArray = [];
+    var defaultFiltersArray = ['caller=any'];
     if (supervisorId) {
       defaultFiltersArray.push('supervisor_id=' + supervisorId);
       $scope.moreDetailToken = moreDetailToken.replace('admin', 'pm');
