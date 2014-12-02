@@ -2,7 +2,14 @@
 (function() {
   'use strict';
 
-  angular.module('org.bonita.features.admin.cases.list', ['ui.router', 'org.bonita.features.admin.cases.list.table', 'ui.bootstrap', 'gettext', 'org.bonita.services.topurl'])
+  angular.module('org.bonita.features.admin.cases.list', [
+    'ui.router',
+    'org.bonita.features.admin.cases.list.table',
+    'ui.bootstrap',
+    'gettext',
+    'org.bonita.services.topurl',
+    'org.bonita.features.admin.cases.list.values'
+  ])
     .config(['$stateProvider', '$urlRouterProvider',
       function($stateProvider, $urlRouterProvider) {
         $urlRouterProvider.when('/pm/cases/list?processId&supervisor_id', '/admin/cases/list?processId&supervisor_id');
@@ -17,17 +24,25 @@
           views: {
             'case-list': {
               templateUrl: 'features/admin/cases/list/cases-list.html',
-              controller: 'ActiveCaseListCtrl'
+              controller: 'ActiveCaseListCtrl',
+              controllerAs : 'caseCtrl'
             }
           },
           resolve: {
+            tabName : ['manageTopUrl', 'activedTabName',
+              function(manageTopUrl, tabName){
+                manageTopUrl.addOrReplaceParam('_tab', tabName);
+                return tabName;
+              }
+            ],
             supervisorId: ['$stateParams',
               function($stateParams) {
                 return $stateParams['supervisor_id'];
               }
             ],
-            processId: ['$stateParams',
-              function($stateParams){
+            processId: ['$stateParams', 'manageTopUrl',
+              function($stateParams, manageTopUrl){
+                manageTopUrl.addOrReplaceParam('_processId', $stateParams.processId || '');
                 return $stateParams.processId;
               }
             ]
@@ -37,17 +52,25 @@
           views: {
             'case-list': {
               templateUrl: 'features/admin/cases/list/cases-list.html',
-              controller: 'ArchivedCaseListCtrl'
+              controller: 'ArchivedCaseListCtrl',
+              controllerAs : 'caseCtrl'
             }
           },
           resolve: {
+            tabName : ['manageTopUrl', 'archivedTabName',
+              function(manageTopUrl, tabName){
+                manageTopUrl.addOrReplaceParam('_tab', tabName);
+                return tabName;
+              }
+            ],
             supervisorId: ['$stateParams',
               function($stateParams) {
                 return $stateParams['supervisor_id'];
               }
             ],
-            processId: ['$stateParams',
-              function($stateParams){
+            processId: ['$stateParams', 'manageTopUrl',
+              function($stateParams, manageTopUrl){
+                manageTopUrl.addOrReplaceParam('_processId', $stateParams.processId || '');
                 return $stateParams.processId;
               }
             ]
@@ -55,20 +78,19 @@
         });
       }
     ])
-    .controller('CaseCtrl', ['$scope', '$state',
-      function($scope, $state) {
+    .controller('CaseCtrl', ['$scope',
+      function($scope) {
         $scope.casesStates = [];
         $scope.casesStates.push({
           state: 'bonita.cases.active',
-          title: 'Active',
+          title: 'Open cases',
           htmlAttributeId: 'TabActiveCases'
         });
         $scope.casesStates.push({
           state: 'bonita.cases.archived',
-          title: 'Archived',
+          title: 'Archived cases',
           htmlAttributeId: 'TabArchivedCases'
         });
-        $scope.state = $state;
       }
     ]);
 })();
